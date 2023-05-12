@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+ul.pagination li.disabled,
+ul.pagination li.disabled button {
+   @apply btn-disabled;
+}
+
+ul.pagination li.active,
+ul.pagination li.active button {
+   @apply btn-active;
+}
+
+th .sort.desc .sort-down {
+   @apply fill-base-content;
+}
+
+th .sort.asc .sort-up {
+   @apply fill-base-content;
+}
