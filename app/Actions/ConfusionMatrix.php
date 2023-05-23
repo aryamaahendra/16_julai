@@ -19,9 +19,9 @@ class ConfusionMatrix
       $allUji = DataUji::all();
       $cn = collect([]);
 
-      foreach (JenisKerusakan::all() as $actual) {
+      foreach (JenisKerusakan::allWithoutNone() as $actual) {
          $temp = collect([]);
-         foreach (JenisKerusakan::all() as $predicted) {
+         foreach (JenisKerusakan::allWithoutNone() as $predicted) {
             $temp->put(Str::replace(' ', '_', $predicted), 0);
          }
          $cn->put(Str::replace(' ', '_', $actual), $temp);

@@ -24,7 +24,7 @@ class DataLatihFactory extends Factory
    {
       $latih = collect([
          'no_polisi' => $this->faker->bothify('Dn####??'),
-         'class' => $this->faker->randomElement(JenisKerusakan::all()),
+         'class' => $this->faker->randomElement(JenisKerusakan::allWithoutNone()),
       ]);
 
       foreach (Data::attributes() as $attr) {
