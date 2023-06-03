@@ -9,6 +9,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
+use Barryvdh\DomPDF\Facade\Pdf;
+use Carbon\Carbon;
 
 class MobilController extends Controller
 {
@@ -55,6 +57,9 @@ class MobilController extends Controller
     public function show(Request $request): View
     {
         $mobil = $request->route('mobil');
+        $mobil->load('kerusakan');
+        $mobil->load('jasa');
+        $mobil->load('part');
 
         return view('mobil.show', [
             'mobil' => $mobil
@@ -111,5 +116,27 @@ class MobilController extends Controller
         } catch (\Throwable $th) {
             throw $th;
         }
+    }
+
+    public function print(Request $request)
+    {
+        $mobil = $request->route('mobil');
+        $mobil->load('kerusakan');
+        $mobil->load('jasa');
+        $mobil->load('part');
+
+        // return view('mobil.export.print', [
+        //     'mobil' => $mobil
+        // ]);
+
+        $html = view('mobil.export.print', [
+            'mobil' => $mobil
+        ])->render();
+
+        $pdf = Pdf::loadHTML($html);
+        $pdf->setPaper('A4', 'potrait');
+
+        // return $pdf->download('invoice.pdf');
+        return $pdf->stream();
     }
 }

@@ -7,12 +7,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mobil extends Model
 {
-   use HasFactory;
+    use HasFactory;
 
-   protected $table = 'mobil';
+    protected $table = 'mobil';
 
-   public function kerusakan()
-   {
-      return $this->hasOne(KerusakanMobil::class, 'mobil_id');
-   }
+    public function kerusakan()
+    {
+        return $this->hasOne(KerusakanMobil::class, 'mobil_id');
+    }
+
+    public function jasa()
+    {
+        return $this->hasMany(MobilJasa::class, 'mobil_id');
+    }
+
+    public function part()
+    {
+        return $this->hasMany(MobilPart::class, 'mobil_id');
+    }
 }
