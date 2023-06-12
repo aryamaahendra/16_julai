@@ -11,61 +11,63 @@ use Illuminate\Support\Str;
 
 class KNN
 {
-   public function __invoke(array $input): array
-   {
-      $allLatih = DataLatih::all();
-      $result = collect([]);
+    public function __invoke(array $input): array
+    {
+        $allLatih = DataLatih::all();
+        $result = collect([]);
 
-      foreach ($allLatih as $latih) {
-         $result->push([
-            'class' => $latih->class,
-            'euclidean' => $this->euclidean($latih, $input)
-         ]);
-      }
+        foreach ($allLatih as $latih) {
+            $result->push([
+                'class' => $latih->class,
+                'euclidean' => $this->euclidean($latih, $input)
+            ]);
+        }
 
-      $result = $result->take((int) $input['k']);
-      $allKerusakan = collect([]);
+        $result = $result->sortBy('euclidean')->values();
+        $result = $result->slice(0, (int) $input['k']);
 
-      foreach ($result as $item) {
-         if ($allKerusakan->has($item['class'])) {
-            $allKerusakan[$item['class']] += 1;
-         } else {
-            $allKerusakan->put($item['class'], 1);
-         }
-      }
-      $allKerusakan = $allKerusakan->sortDesc();
+        $allKerusakan = collect([]);
+        foreach ($result as $item) {
+            if ($allKerusakan->has($item['class'])) {
+                $allKerusakan[$item['class']] += 1;
+            } else {
+                $allKerusakan->put($item['class'], 1);
+            }
+        }
 
-      $first = $allKerusakan->values()->all()[0];
-      $second = $allKerusakan->values()->all()[1] ?? null;
-      $kerusakan = null;
+        $allKerusakan = $allKerusakan->sortDesc();
 
-      if ($first != $second) {
-         foreach ($allKerusakan as $key => $value) {
-            $kerusakan = [
-               'class' => $key,
-               'total' => $value,
-            ];
-            break;
-         }
-      }
+        $first = $allKerusakan->values()->all()[0];
+        $second = $allKerusakan->values()->all()[1] ?? null;
+        $kerusakan = null;
 
-      return [
-         'allResult' => $result,
-         'kerusakan' => $kerusakan
-      ];
-   }
+        if ($first != $second) {
+            foreach ($allKerusakan as $key => $value) {
+                $kerusakan = [
+                    'class' => $key,
+                    'total' => $value,
+                ];
+                break;
+            }
+        }
 
-   protected function euclidean($model, $data)
-   {
-      $sum = 0;
+        return [
+            'allResult' => $result,
+            'kerusakan' => $kerusakan
+        ];
+    }
 
-      foreach (Data::attributes() as $attr) {
-         $attr1 = Kerusakan::toInt($model[$attr]);
-         $attr2 = Kerusakan::toInt($data[$attr]);
+    protected function euclidean($model, $data)
+    {
+        $sum = 0;
 
-         $sum += pow($attr1 - $attr2, 2);
-      }
+        foreach (Data::attributes() as $attr) {
+            $attr1 = Kerusakan::toInt($model[$attr]);
+            $attr2 = Kerusakan::toInt($data[$attr]);
 
-      return sqrt($sum);
-   }
+            $sum += pow($attr1 - $attr2, 2);
+        }
+
+        return sqrt($sum);
+    }
 }

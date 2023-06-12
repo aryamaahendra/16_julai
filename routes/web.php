@@ -8,6 +8,7 @@ use App\Http\Controllers\MobilJasaController;
 use App\Http\Controllers\MobilPartController;
 use App\Http\Controllers\PengujianController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TestController;
 use App\Http\Middleware\ResolveWebParams;
 use App\Models\DataLatih;
 use App\Models\DataUji;
@@ -59,5 +60,7 @@ Route::middleware(['auth', ResolveWebParams::class])->group(function () {
     Route::get('pengujian', [PengujianController::class, 'index'])->name('pengujian.index');
     Route::post('pengujian', [PengujianController::class, 'proces'])->name('pengujian.proces');
 });
+
+Route::get('test', [TestController::class, 'index']);
 
 require __DIR__ . '/auth.php';

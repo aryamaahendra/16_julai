@@ -12,7 +12,7 @@
             <label for="k" class="label">
                 <span class="label-text">Nilai K</span>
             </label>
-            <input type="number" class="input input-bordered w-full" name="k" value="{{ old('k') ?? 7 }}"
+            <input type="number" class="input input-bordered w-full" name="k" value="{{ old('k') ?? 5 }}"
                 autofocus />
             @error('k')
                 <label class="label">
