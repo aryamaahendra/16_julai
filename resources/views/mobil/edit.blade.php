@@ -121,11 +121,37 @@
                             <span class="label-text capitalize">{{ Str::of($attr)->replace('_', ' ') }}</span>
                         </label>
                         <select class="select select-bordered" name="{{ $attr }}">
-                            @forelse (App\Enums\Kerusakan::all() as $kerusakan)
-                                <option @selected(old($attr) ?? $mobil->kerusakan[$attr] == $kerusakan) value="{{ $kerusakan }}">
-                                    {{ Str::of($kerusakan)->title() }}</option>
-                            @empty
-                            @endforelse
+                            @if (in_array($attr, MyData::$AKSESORIS))
+                                @forelse (App\Enums\Kerusakan::AKESORIS() as $kerusakan)
+                                    <option @selected(old($attr) ?? $mobil->kerusakan[$attr] == $kerusakan) value="{{ $kerusakan }}">
+                                        {{ Str::of($kerusakan)->title() }}</option>
+                                @empty
+                                @endforelse
+                            @elseif (in_array($attr, MyData::$AIRBAG))
+                                @forelse (App\Enums\Kerusakan::AIRBAG() as $kerusakan)
+                                    <option @selected(old($attr) ?? $mobil->kerusakan[$attr] == $kerusakan) value="{{ $kerusakan }}">
+                                        {{ Str::of($kerusakan)->title() }}</option>
+                                @empty
+                                @endforelse
+                            @elseif (in_array($attr, MyData::$MESIN))
+                                @forelse (App\Enums\Kerusakan::MESIN() as $kerusakan)
+                                    <option @selected(old($attr) ?? $mobil->kerusakan[$attr] == $kerusakan) value="{{ $kerusakan }}">
+                                        {{ Str::of($kerusakan)->title() }}</option>
+                                @empty
+                                @endforelse
+                            @elseif (in_array($attr, MyData::$BODY))
+                                @forelse (App\Enums\Kerusakan::BODY() as $kerusakan)
+                                    <option @selected(old($attr) ?? $mobil->kerusakan[$attr] == $kerusakan) value="{{ $kerusakan }}">
+                                        {{ Str::of($kerusakan)->title() }}</option>
+                                @empty
+                                @endforelse
+                            @else
+                                @forelse (App\Enums\Kerusakan::all() as $kerusakan)
+                                    <option @selected(old($attr) ?? $mobil->kerusakan[$attr] == $kerusakan) value="{{ $kerusakan }}">
+                                        {{ Str::of($kerusakan)->title() }}</option>
+                                @empty
+                                @endforelse
+                            @endif
                         </select>
                         @error($attr)
                             <label class="label">

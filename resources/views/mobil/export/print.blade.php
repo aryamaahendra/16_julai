@@ -81,6 +81,10 @@
                 <td style="padding-right: 20px; padding-bottom: 4px">Nama Asuransi</td>
                 <td style="padding-bottom: 4px">: {{ $mobil->nama_asuransi }}</td>
             </tr>
+            <tr>
+                <td style="padding-right: 20px; padding-bottom: 4px">Kerusakan</td>
+                <td style="padding-bottom: 4px">: {{ Str::of($mobil->jenis_kerusakan)->title() }}</td>
+            </tr>
         </tbody>
     </table>
 

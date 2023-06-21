@@ -4,6 +4,51 @@ namespace App\Utilities;
 
 class Data
 {
+    public static $AKSESORIS = [
+        'headlamp_lh',
+        'headlamp_rh',
+        'stop_lamp_lh',
+        'stop_lamp_rh',
+        'kaca_pintu',
+        'kaca_fr',
+        'kaca_rr',
+        'spion_lh',
+        'spion_rh',
+    ];
+
+
+    public static $AIRBAG = [
+        'air_bag',
+    ];
+
+    public static $MESIN = [
+        'mesin',
+    ];
+
+    public static $BODY = [
+        'fender_lh',
+        'fender_rh',
+        'kap_mesin',
+        'support_radiator',
+        'pintu_fr_lh',
+        'pintu_fr_rh',
+        'pintu_rr_lh',
+        'pintu_rr_rh',
+        'tiang_pintu_rr',
+        'tiang_pintu_fr',
+        'quarter_lh',
+        'quarter_rh',
+        'triplang_rh',
+        'triplang_lh',
+        'pintu_bagasi',
+        'lantai',
+        'pipih_lh',
+        'pipih_rh',
+        'pilar_lh',
+        'pilar_rh',
+        'roof',
+    ];
+
     public static function attributes(): array
     {
         return [

@@ -2,6 +2,8 @@
 
 namespace App\Enums;
 
+use App\Utilities\Data;
+
 enum Kerusakan: string
 {
     case NIL = "none";
@@ -15,6 +17,42 @@ enum Kerusakan: string
     public static function all(): array
     {
         return array_column(Kerusakan::cases(), 'value');
+    }
+
+    public static function AKESORIS(): array
+    {
+        return [
+            self::NIL->value,
+            self::BARET->value,
+            self::RETAK->value,
+        ];
+    }
+
+    public static function AIRBAG(): array
+    {
+        return [
+            self::NIL->value,
+            self::ROBEK_PARAH->value
+        ];
+    }
+
+    public static function MESIN(): array
+    {
+        return [
+            self::NIL->value,
+            self::RETAK->value,
+            self::PENYOK_PARAH->value,
+        ];
+    }
+
+    public static function BODY(): array
+    {
+        return [
+            self::NIL->value,
+            self::BARET->value,
+            self::PENYOK->value,
+            self::PENYOK_PARAH->value,
+        ];
     }
 
     public static function toInt(string $val)
